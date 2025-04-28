@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcazar SiteTech Pre-start Training</title>
+    <!-- Import Poppins font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Define Alcazar Colors using CSS Variables */
+        :root {
+            --primary-offwhite: #E4EAEA;
+            --primary-charcoal: #3B373A;
+            --accent-orange: #F47D2B;
+            --accent-teal: #8A8C91; /* Appears grey/teal in original image */
+            --accent-royal: #9584B9; /* Appears purple/royal in original image */
+            --accent-woods: #A08E85; /* Appears brown/woods in original image */
+            --text-light: #E4EAEA; /* Using Off-White for light text */
+            --text-dark: #3B373A; /* Using Charcoal for dark text */
+            --feedback-correct: #4CAF50; /* Green */
+            --feedback-incorrect: #F44336; /* Red */
+        }
+
+        /* Basic Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: var(--primary-charcoal);
+            color: var(--text-light);
+            padding-bottom: 40px; /* Space at bottom */
+            min-height: 100vh; /* Ensure body is at least viewport height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--primary-offwhite);
+            color: var(--text-dark);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            flex-shrink: 0; /* Prevent header from shrinking */
+        }
+
+        .header h1 {
+            font-weight: 700; /* Poppins Bold */
+            font-size: 2em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .header .logo {
+            font-weight: 700; /* Poppins Bold */
+            font-size: 1.5em;
+            color: var(--accent-orange); /* Example usage */
+        }
+
+        .header .logo sup {
+             font-size: 0.5em; /* Adjust ® symbol size */
+             vertical-align: super;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex-grow: 1; /* Allow container to grow */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Progress Bar */
+        .progress-area {
+            background-color: var(--primary-offwhite);
+            color: var(--text-dark);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            flex-shrink: 0; /* Prevent progress area from shrinking */
+        }
+
+        .progress-text {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 700; /* Poppins Bold */
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-orange);
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .xp-text {
+            font-size: 1.1em;
+            margin-top: 8px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--accent-teal);
+        }
+
+        /* Learning Sections */
+        .learning-section {
+            background-color: var(--primary-offwhite);
+            color: var(--text-dark);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+            /* --- Transition Control --- */
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+             /* Ensure it takes up space when visible */
+             flex-grow: 1;
+             flex-direction: column;
+             justify-content: space-between;
+             min-height: 400px; /* Give sections a minimum height to avoid collapsing during transitions */
+        }
+
+        .learning-section.active {
+            display: flex; /* Use flex when active */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+         .section-content {
+             flex-grow: 1; /* Content area can grow */
+             margin-bottom: 20px; /* Space before activity/button */
+         }
+
+        .learning-section h2 {
+            font-weight: 700; /* Poppins Bold */
+            text-transform: uppercase; /* Guideline: Headings in ALL CAPS */
+            color: var(--accent-orange);
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-charcoal);
+            padding-bottom: 10px;
+        }
+
+        .learning-section h3 {
+             font-weight: 700; /* Poppins Bold */
+             text-transform: uppercase;
+             color: var(--accent-teal); /* Using Accent Grey */
+             margin-top: 25px;
+             margin-bottom: 15px;
+        }
+
+        .learning-section p {
+            margin-bottom: 15px;
+             font-weight: 400; /* Poppins Regular */
+        }
+
+         .learning-section ul {
+             margin-bottom: 15px;
+             padding-left: 20px;
+         }
+         .learning-section li {
+             margin-bottom: 8px;
+             font-weight: 400; /* Poppins Regular */
+         }
+
+
+        /* Buttons */
+        button {
+            background-color: var(--accent-orange);
+            color: var(--text-light);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block; /* Make button full width in simple use */
+            margin: 20px auto 0 auto; /* Center button */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700; /* Poppins Bold */
+            text-transform: uppercase;
+            flex-shrink: 0; /* Prevent button from shrinking */
+        }
+
+        button:hover {
+            background-color: #e06c1d; /* Slightly darker orange */
+        }
+
+        button.restart-button {
+             background-color: var(--accent-royal); /* Accent Purple */
+        }
+        button.restart-button:hover {
+             background-color: #8a7aa5; /* Slightly darker */
+        }
+
+
+        /* Info Sections (using divs inside section-content) */
+        .info-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--primary-charcoal);
+            color: var(--text-light);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: var(--text-light); /* Headings inside info box */
+            border-bottom: 1px solid var(--text-light);
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        /* Activities */
+        .activity {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: var(--primary-charcoal);
+            color: var(--text-light);
+            border-radius: 8px;
+            border: 2px solid var(--accent-orange); /* Highlight activity section */
+            flex-shrink: 0; /* Prevent activity from shrinking */
+        }
+
+        .activity h3 {
+            color: var(--accent-orange);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .activity p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .activity-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Reduced gap slightly */
+            flex-wrap: wrap; /* Ensure responsiveness */
+        }
+
+        .activity-options .option {
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid var(--primary-offwhite);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px; /* Minimum width */
+            max-width: 300px; /* Maximum width */
+            font-weight: 400; /* All options use regular weight */
+            background-color: var(--primary-charcoal);
+            color: var(--text-light);
+        }
+
+        .activity-options .option:not(.disabled):hover { /* Only hover if not disabled */
+            transform: translateY(-5px);
+            border-color: var(--accent-orange);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+         .activity-options .option strong {
+             font-weight: 400; /* Reset strong weight to regular */
+         }
+
+         .activity-options .option.disabled {
+             cursor: default;
+             opacity: 0.7;
+         }
+
+
+        /* Feedback */
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            min-height: 1.2em; /* Reserve space */
+            font-weight: 700; /* Poppins Bold */
+            display: none; /* Hide initially */
+        }
+
+        .feedback.correct {
+            background-color: var(--feedback-correct);
+            color: white;
+            display: block; /* Show when active */
+        }
+
+        .feedback.incorrect {
+            background-color: var(--feedback-incorrect);
+            color: white;
+            display: block; /* Show when active */
+        }
+
+        /* Styles for options after selection */
+        .activity-options .option.selected {
+             border-color: var(--accent-teal); /* Highlight selected */
+        }
+        .activity-options .option.correct-answer {
+             border-color: var(--feedback-correct);
+             background-color: rgba(76, 175, 80, 0.3); /* Light green fill */
+        }
+        .activity-options .option.incorrect-answer {
+             border-color: var(--feedback-incorrect);
+             background-color: rgba(244, 67, 54, 0.3); /* Light red fill */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+             .header .logo {
+                  font-size: 1.2em;
+             }
+            .container {
+                padding: 0 10px;
+            }
+            .learning-section {
+                padding: 20px;
+            }
+             .activity-options {
+                  flex-direction: column; /* Stack options vertically */
+                  gap: 10px;
+             }
+             .activity-options .option {
+                  width: 100%; /* Full width options */
+             }
+             button {
+                  width: 100%; /* Full width button */
+                  padding: 10px 15px;
+             }
+             .learning-section {
+                  min-height: 300px; /* Adjust min height for smaller screens */
+             }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>SiteTech Pre-start Training</h1>
+        <div class="logo">ALCAZAR<sup>®</sup> LEARNING</div>
+    </header>
+
+    <main class="container">
+
+        <div id="progress-area" class="progress-area">
+            <div class="progress-text">Mission Progress: <span id="progress-step">0</span> / <span id="total-steps">8</span></div>
+            <div class="xp-text">XP: <span id="xp-count">0</span></div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Section 0: Introduction -->
+        <section id="section-0" class="learning-section">
+            <div class="section-content">
+                 <h2>Welcome!</h2>
+                 <p>Your mission is to master the SiteTech Pre-start process for Kingfence installations. A proper pre-start ensures a smooth installation and a satisfied customer. Let's get you trained!</p>
+                 <p>You'll learn about the crucial steps and then tackle a quick challenge to test your knowledge. There are <strong>8 key stages</strong> to cover.</p>
+            </div>
+            <button class="next-button">Accept Mission & Start!</button>
+        </section>
+
+        <!-- Section 1: Safety First -->
+        <section id="section-1" class="learning-section">
+            <div class="section-content">
+                <h2>1. Safety First - Gear Up!</h2>
+                <p>Site visits require essential safety gear to protect you and comply with site regulations.</p>
+                <div class="info-box">
+                    <h3>Mandatory PPE</h3>
+                    <ul>
+                        <li>Hi-Vis Clothing (Vest or Shirt)</li>
+                        <li>Work Boots</li>
+                    </ul>
+                    <p>Always ensure you are wearing the correct Personal Protective Equipment (PPE) before entering any site.</p>
+                </div>
+            </div>
+            <div id="safety-activity" class="activity">
+                <h3>Safety Challenge!</h3>
+                <p>What is **mandatory** PPE for a SiteTech pre-start?</p>
+                <div class="activity-options safety-challenge">
+                    <div class="option" data-answer="incorrect">Hard Hat & Gloves</div>
+                    <div class="option" data-answer="correct"><strong>Hi-Vis</strong> & <strong>Work Boots</strong></div>
+                    <div class="option" data-answer="incorrect">Safety Glasses & Ear Protection</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <button class="next-button">Proceed to Briefing</button>
+        </section>
+
+        <!-- Section 2: The Briefing - Customer Inputs -->
+        <section id="section-2" class="learning-section">
+            <div class="section-content">
+                <h2>2. The Briefing - Customer Inputs</h2>
+                <p>The first step in planning is understanding the customer's site and requirements. This starts with reviewing the documents they provide.</p>
+                <div class="info-box">
+                    <h3>Documents Received</h3>
+                    <p>You must receive and review the:</p>
+                    <ul>
+                        <li><strong>Drawings / Site Plan</strong></li>
+                    </ul>
+                    <p>These documents are the foundation for your site assessment and planning.</p>
+                </div>
+            </div>
+            <div id="inputs-activity" class="activity">
+                <h3>Inputs Challenge!</h3>
+                <p>What essential document do you receive from the customer?</p>
+                <div class="activity-options inputs-challenge">
+                    <div class="option" data-answer="incorrect">Invoice Details</div>
+                    <div class="option" data-answer="correct"><strong>Drawings / Site Plan</strong></div>
+                    <div class="option" data-answer="incorrect">Previous Job Photos</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <button class="next-button">Proceed to Ground Recon</button>
+        </section>
+
+         <!-- Section 3: Ground Recon & Conditions -->
+        <section id="section-3" class="learning-section">
+            <div class="section-content">
+                <h2>3. Ground Recon - Site Conditions</h2>
+                <p>Kingfence uses an in-ground screw system, making ground conditions critical. You need to visually inspect and assess the site's suitability.</p>
+                <div class="info-box">
+                    <h3>Site Condition Checklist</h3>
+                    <ul>
+                        <li>General site conditions (slope, terrain, obstacles).</li>
+                        <li><strong>Ground inspection</strong> for screw system suitability (rock, hard clay, buried services - *potential issues with screw penetration*).</li>
+                        <li>Note any existing structures or features near fence lines.</li>
+                    </ul>
+                     <p>Identify any potential issues with inground screw penetration early!</p>
+                </div>
+            </div>
+            <div id="ground-activity" class="activity">
+                <h3>Ground Challenge!</h3>
+                <p>Why is **ground inspection** especially important for Kingfence?</p>
+                <div class="activity-options ground-challenge">
+                    <div class="option" data-answer="incorrect">To check for buried treasure.</div>
+                    <div class="option" data-answer="correct">Kingfence uses an <strong>in-ground screw system</strong>.</div>
+                    <div class="option" data-answer="incorrect">To find worms for fishing.</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <button class="next-button">Proceed to Mapping</button>
+        </section>
+
+        <!-- Section 4: Mapping the Plan - Marked Drawing -->
+        <section id="section-4" class="learning-section">
+            <div class="section-content">
+                <h2>4. Mapping the Plan - Marked Drawing</h2>
+                <p>Your primary output is a "marked up" drawing based on the customer's plan. This is vital for the installation team.</p>
+                <div class="info-box">
+                    <h3>Marked Up Drawing Must Confirm:</h3>
+                    <ul>
+                        <li>Property boundaries.</li>
+                        <li>Site conditions observed.</li>
+                        <li>Where the <strong>Kingfence posts</strong> will be located.</li>
+                        <li>Where <strong>gates</strong> are positioned.</li>
+                        <li>Where the <strong>temp fence starts</strong> (vs Kingfence).</li>
+                    </ul>
+                    <p>Accuracy here prevents installation errors.</p>
+                </div>
+            </div>
+             <div id="mapping-activity" class="activity">
+                <h3>Mapping Challenge!</h3>
+                <p>Which of these is NOT something you must mark on the drawing?</p>
+                <div class="activity-options mapping-challenge">
+                    <div class="option" data-answer="incorrect">Kingfence Post Locations</div>
+                    <div class="option" data-answer="incorrect">Gate Positions</div>
+                    <div class="option" data-answer="correct"><strong>The Installer's Break Spot</strong></div>
+                    <div class="option" data-answer="incorrect">Temp Fence Start</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <button class="next-button">Proceed to Logistics & Hazards</button>
+        </section>
+
+         <!-- Section 5: Logistics & Hazards -->
+        <section id="section-5" class="learning-section">
+            <div class="section-content">
+                <h2>5. Logistics & Hazards - Prep Work</h2>
+                <p>Beyond the layout, you need to confirm site readiness and identify potential problems.</p>
+                <div class="info-box">
+                    <h3>Logistics & Hazard Checklist</h3>
+                    <ul>
+                        <li>Confirm <strong>clear site access</strong> (Photos required!).</li>
+                        <li>Identify any <strong>site hazards</strong> (power lines, unstable ground, underground services, etc.).</li>
+                        <li>Estimate <strong>stock quantities</strong> required on site.</li>
+                    </ul>
+                    <p>Communicating hazards and access ensures the installation team arrives prepared and safe.</p>
+                </div>
+            </div>
+             <div id="logistics-activity" class="activity">
+                <h3>Logistics Challenge!</h3>
+                <p>What must you confirm regarding site access?</p>
+                <div class="activity-options logistics-challenge">
+                    <div class="option" data-answer="incorrect">If the customer has a dog.</div>
+                    <div class="option" data-answer="correct">If there is <strong>clear site access</strong> (with photos).</div>
+                    <div class="option" data-answer="incorrect">The quickest route from the office.</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <button class="next-button">Proceed to Plan Review</button>
+        </section>
+
+        <!-- Section 6: Plan Matching & SWMS -->
+        <section id="section-6" class="learning-section">
+            <div class="section-content">
+                <h2>6. Plan Review & SWMS</h2>
+                <p>Compare the site findings to standard procedures and create essential safety documentation.</p>
+                <div class="info-box">
+                    <h3>Layout & Safety Documentation</h3>
+                    <ul>
+                        <li>Determine if this job matches one of our standard layout options.</li>
+                        <li>If no standard layout matches, you **must** explain why.</li>
+                        <li>Ensure a Safe Work Method Statement (<strong>SWMS</strong>) is created.</li>
+                    </ul>
+                    <p>The SWMS is critical for the safety of the installation team.</p>
+                </div>
+            </div>
+             <div id="plan-activity" class="activity">
+                <h3>Plan Challenge!</h3>
+                <p>True or False: If a job doesn't match a standard layout, you don't need to explain why.</p>
+                <div class="activity-options plan-challenge">
+                    <div class="option" data-answer="correct">False</div>
+                    <div class="option" data-answer="incorrect">True</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <button class="next-button">Proceed to Outputs & Accuracy</button>
+        </section>
+
+        <!-- Section 7: Outputs & Accuracy -->
+        <section id="section-7" class="learning-section">
+            <div class="section-content">
+                <h2>7. Outputs - Documentation & Accuracy</h2>
+                <p>Your completed pre-start report and documents are crucial handovers to the Operations and Installation teams.</p>
+                <div class="info-box">
+                    <h3>Required Outputs</h3>
+                    <ul>
+                        <li>Your <strong>marked up drawings</strong> (for the installation team).</li>
+                        <li>Operations require <strong>scanned documents</strong> of ALL the above information (drawings, notes, photos, SWMS, etc.).</li>
+                    </ul>
+                     <p>Remember: If the pre-start is inaccurate, it will likely cause problems with the installation. This leads to delays, extra costs, and potential rework.</p>
+                </div>
+            </div>
+            <div id="outputs-activity" class="activity">
+                <h3>Outputs Challenge!</h3>
+                <p>What is a likely consequence of an **inaccurate** pre-start?</p>
+                <div class="activity-options outputs-challenge">
+                    <div class="option" data-answer="incorrect">You get a bonus.</div>
+                    <div class="option" data-answer="correct">It will likely cause <strong>problems with the installation</strong>.</div>
+                    <div class="option" data-answer="incorrect">The customer brings you coffee.</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <button class="next-button">Proceed to Team Roles</button>
+        </section>
+
+         <!-- Section 8: Team Roles -->
+        <section id="section-8" class="learning-section">
+            <div class="section-content">
+                <h2>8. Team Roles - Sales & Ops</h2>
+                <p>Understanding team responsibilities during the installation phase ensures smooth operations.</p>
+                <div class="info-box">
+                    <h3>Sales Team Role</h3>
+                    <ul>
+                        <li>Sales Team can attend the **end** of the job (signage install photos, job sign off) if required.</li>
+                        <li>Sales Team should **NOT** attend the duration of the install.</li>
+                    </ul>
+                    <p>This allows the installation team to focus on their work without interruption.</p>
+                </div>
+            </div>
+             <div id="roles-activity" class="activity">
+                <h3>Team Roles Challenge!</h3>
+                <p>True or False: Sales Team members should attend the site for the **entire duration** of the installation.</p>
+                <div class="activity-options roles-challenge">
+                    <div class="option" data-answer="correct">False</div>
+                    <div class="option" data-answer="incorrect">True</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+             <!-- No next button here, completion of this activity triggers the final screen -->
+        </section>
+
+        <!-- Section 9: Completion -->
+        <section id="section-9" class="learning-section">
+             <div class="section-content">
+                 <h2>Mission Accomplished!</h2>
+                 <p>Congratulations! You have successfully reviewed and reinforced your understanding of the SiteTech Pre-start process for Kingfence installations.</p>
+                 <p>By following these steps diligently, you contribute to efficient, safe, and successful project delivery.</p>
+                 <p>You are now ready to perform accurate and effective SiteTech pre-starts!</p>
+            </div>
+             <button onclick="location.reload()" class="restart-button">Restart Training</button>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.learning-section');
+            const progressStepSpan = document.getElementById('progress-step');
+            const totalStepsSpan = document.getElementById('total-steps');
+            const progressBarFill = document.getElementById('progress-fill');
+            const nextButtons = document.querySelectorAll('.next-button');
+            const activities = document.querySelectorAll('.activity');
+
+            let currentStep = 0;
+            // Number of activity sections (from section-1 to section-8)
+            const totalActivities = 8; // Sections 1 through 8 have activities
+
+            // Set the total steps display - confirmed by the count of activity sections
+            totalStepsSpan.textContent = totalActivities;
+            let xp = 0;
+            const xpCountSpan = document.getElementById('xp-count');
+            function updateXP() {
+                xpCountSpan.textContent = xp;
+            }
+
+            // --- Utility Functions ---
+
+             // Function to smoothly hide a section
+             function hideSection(index) {
+                  if (sections[index]) {
+                       sections[index].classList.remove('active');
+                       // Wait for the transition to finish before hiding display
+                       sections[index].addEventListener('transitionend', function handler() {
+                            sections[index].style.display = 'none';
+                            sections[index].removeEventListener('transitionend', handler);
+                       }, { once: true }); // Use { once: true } for a cleaner removal
+                       // If transitionend doesn't fire (e.g., display was none), fallback
+                       setTimeout(() => {
+                            if (!sections[index].classList.contains('active')) {
+                                sections[index].style.display = 'none';
+                            }
+                       }, 600); // Slightly longer than the CSS transition duration
+                  }
+             }
+
+            // Function to smoothly show a section
+            function showSection(index) {
+                // Hide the current active section first, with animation
+                sections.forEach((section, i) => {
+                    if (section.classList.contains('active')) {
+                         hideSection(i);
+                    }
+                });
+
+                if (sections[index]) {
+                    // Set display to flex immediately to start layout calculations
+                    sections[index].style.display = 'flex';
+                    // Use a tiny delay to allow display change to render before starting opacity/transform transition
+                    setTimeout(() => {
+                         sections[index].classList.add('active');
+                    }, 10); // 10ms delay is usually enough
+                }
+            }
+
+
+            function updateProgress() {
+                progressStepSpan.textContent = completedActivities;
+                const percentage = (completedActivities / totalActivities) * 100;
+                progressBarFill.style.width = percentage + '%';
+            }
+
+            function showFeedback(activityElement, message, isCorrect) {
+                const feedbackElement = activityElement.querySelector('.feedback');
+                feedbackElement.textContent = message;
+                // Ensure display is block before adding classes
+                feedbackElement.style.display = 'block';
+                feedbackElement.className = 'feedback'; // Reset classes
+                feedbackElement.classList.add(isCorrect ? 'correct' : 'incorrect');
+            }
+
+            function disableActivity(activityElement) {
+                 const options = activityElement.querySelectorAll('.option');
+                 options.forEach(option => {
+                      option.style.pointerEvents = 'none'; // Disable clicks
+                      option.classList.add('disabled'); // Add a disabled class for styling
+                 });
+                 // activityElement.classList.add('completed'); // We won't hide the whole activity block for now
+            }
+
+            let completedActivities = 0; // Moved outside functions to persist state
+
+            function handleActivityCompletion(activityElement, isCorrect) {
+                 if (!isCorrect) {
+                      // Deduct XP for incorrect answer
+                      xp = Math.max(0, xp - 5);
+                      updateXP();
+                      // Only handle completion if the answer was correct
+                      return;
+                 }
+
+                // Check if this activity has already been completed
+                 if (activityElement.dataset.completed) {
+                      return; // Already handled
+                 }
+                 activityElement.dataset.completed = 'true'; // Mark as completed
+
+
+                completedActivities++;
+                updateProgress();
+                xp += 10;
+                updateXP();
+                disableActivity(activityElement);
+
+                // Hide the feedback and show the next button/advance after a short delay
+                 setTimeout(() => {
+                     const feedbackElement = activityElement.querySelector('.feedback');
+                     if(feedbackElement) {
+                         feedbackElement.textContent = ''; // Clear feedback text
+                         feedbackElement.className = 'feedback'; // Remove correct/incorrect classes
+                         feedbackElement.style.display = 'none'; // Hide the feedback element
+                     }
+
+                    // Determine next action: show next button or go to final screen
+                    const parentSection = activityElement.closest('.learning-section');
+                    const sectionIndex = parseInt(parentSection.id.replace('section-', ''));
+
+                    if (completedActivities === totalActivities) {
+                         // This was the last activity (in section-8), advance to the final screen (section-9)
+                         const nextButton = parentSection.querySelector('.next-button');
+                          if (nextButton) nextButton.style.display = 'none'; // Hide button just in case
+
+                         setTimeout(() => {
+                              if (xp >= 70) {
+                                   showSection(sections.length - 1); // Show completion
+                              } else {
+                                   alert('XP too low. You need at least 70 XP to pass.');
+                                   const finalSection = document.getElementById('section-9');
+                                   finalSection.querySelector('h2').textContent = 'Training Incomplete';
+                                   const msgs = finalSection.querySelectorAll('.section-content p');
+                                   if (msgs.length >= 2) {
+                                        msgs[0].textContent = `Your XP is ${xp}. You needed at least 70 XP to pass.`;
+                                        msgs[1].textContent = 'Please click Restart Training below to try again.';
+                                   }
+                                   showSection(sections.length - 1);
+                              }
+                         }, 500); // Small delay before handling completion
+                    } else {
+                         // Not the last activity, just show the next button for this section
+                         const nextButton = parentSection.querySelector('.next-button');
+                         if (nextButton) {
+                               nextButton.style.display = 'block'; // Show the button
+                               nextButton.style.margin = '20px auto 0 auto'; // Center it
+                         }
+                    }
+                }, 2000); // Delay for 2 seconds after a correct answer
+            }
+
+
+            // --- Activity Logic (Define logic for each activity) ---
+
+            // Helper function to handle common click logic for activity options
+            function setupActivity(activityId, correctDataAnswer) {
+                const activityElement = document.getElementById(activityId);
+                if (!activityElement) return; // Skip if activity not found
+
+                const options = activityElement.querySelectorAll('.option');
+
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        // Prevent clicks if activity is already completed or option is disabled
+                        if (activityElement.dataset.completed || option.classList.contains('disabled')) return;
+
+                        const selectedAnswer = option.getAttribute('data-answer');
+                        const isCorrect = (selectedAnswer === correctDataAnswer);
+
+                        // Clear previous selection/feedback styles on *all* options for this activity
+                        options.forEach(opt => {
+                             opt.classList.remove('selected', 'correct-answer', 'incorrect-answer');
+                        });
+                        option.classList.add('selected');
+
+                         // Show feedback
+                        if (isCorrect) {
+                            showFeedback(activityElement, "Correct!", true);
+                            option.classList.add('correct-answer');
+                        } else {
+                            showFeedback(activityElement, "Incorrect. Try again!", false);
+                             option.classList.add('incorrect-answer');
+                        }
+
+                        // Handle completion based on correctness
+                        handleActivityCompletion(activityElement, isCorrect);
+
+                    });
+                });
+            }
+
+            // Setup each specific activity by ID and the data-answer value of the correct option
+            setupActivity('safety-activity', 'correct');
+            setupActivity('inputs-activity', 'correct');
+            setupActivity('ground-activity', 'correct');
+            setupActivity('mapping-activity', 'correct');
+            setupActivity('logistics-activity', 'correct');
+            setupActivity('plan-activity', 'correct');
+            setupActivity('outputs-activity', 'correct');
+            setupActivity('roles-activity', 'correct');
+
+
+            // --- Navigation (using Next buttons) ---
+            nextButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Find the parent section
+                    const currentSection = button.closest('.learning-section');
+                    const currentSectionId = currentSection.id;
+                    const sectionIndex = parseInt(currentSectionId.replace('section-', ''));
+
+                    // Hide the button immediately
+                    button.style.display = 'none';
+
+                    // Move to the next section
+                    currentStep = sectionIndex + 1;
+                    if (currentStep < sections.length) {
+                        showSection(currentStep);
+                    }
+                    // The transition to section-9 is handled by handleActivityCompletion
+                });
+            });
+
+
+            // --- Initialization ---
+            function init() {
+                // Hide all sections except the first one (intro)
+                sections.forEach((section, index) => {
+                    section.style.display = 'none'; // Start hidden
+                    section.classList.remove('active'); // Ensure no active class initially
+
+                     // Reset state for sections with activities
+                     const activity = section.querySelector('.activity');
+                     if(activity) {
+                          delete activity.dataset.completed; // Remove completed marker
+                          const options = activity.querySelectorAll('.option');
+                          options.forEach(option => {
+                                option.style.pointerEvents = 'auto'; // Enable clicks
+                                option.classList.remove('selected', 'correct-answer', 'incorrect-answer', 'disabled'); // Remove all state classes
+                           });
+                     }
+                });
+
+                 // Show the intro section (section-0)
+                 showSection(0);
+                 currentStep = 0;
+
+                // Hide next buttons initially (except the intro one, handled below)
+                 nextButtons.forEach(button => {
+                      button.style.display = 'none';
+                 });
+
+                 // Hide activity feedback initially
+                 const feedbackElements = document.querySelectorAll('.feedback');
+                 feedbackElements.forEach(feedback => {
+                      feedback.style.display = 'none';
+                      feedback.textContent = '';
+                      feedback.className = 'feedback'; // Reset classes
+                 });
+
+
+                // Show the next button on the intro section (section-0)
+                const introNextButton = sections[0].querySelector('.next-button');
+                if (introNextButton) {
+                     introNextButton.style.display = 'block';
+                     introNextButton.style.margin = '20px auto 0 auto'; // Center it
+                }
+
+                // Initialize progress
+                completedActivities = 0;
+                updateProgress();
+                xp = 0;
+                updateXP();
+            }
+
+            // Run initialization when the page loads
+            init();
+        });
+    </script>
+
+</body>
+</html>
