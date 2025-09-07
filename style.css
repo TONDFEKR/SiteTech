@@ -18,6 +18,8 @@ body {
     margin: 0 auto;
     min-height: 100vh;
     font-family: 'Courier New', monospace;
+    position: relative;
+    padding-bottom: 120px; /* Space for footer */
 }
 
 /* Animations */
@@ -361,6 +363,53 @@ h1 {
     .section-title {
         font-size: 1.75rem;
         margin-bottom: 2rem;
+    }
+    
+    /* Contact bar and footer mobile styles */
+    .contact-info,
+    .footer-info {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 0.8rem;
+    }
+    
+    .contact-separator,
+    .footer-separator {
+        display: none;
+    }
+    
+    .contact-bar {
+        padding: 6px 0;
+    }
+    
+    .footer {
+        padding: 12px 0;
+    }
+    
+    body {
+        padding-top: 80px; /* More space for mobile contact bar */
+        padding-bottom: 140px; /* More space for mobile footer */
+    }
+    
+    /* Adjust profile section margins for mobile */
+    .profile-section {
+        margin: 0.5rem auto 1rem;
+        padding: 1rem;
+    }
+    
+    .profile-name {
+        font-size: 1.8rem;
+        margin: 0 0 0.75rem;
+    }
+    
+    .profile-title {
+        font-size: 1.1rem;
+        margin: 0 0 1rem;
+    }
+    
+    .profile-desc {
+        font-size: 1rem;
+        line-height: 1.6;
     }
 }
 
@@ -806,5 +855,189 @@ h1 {
     .option-check {
         left: 12px;
         font-size: 1.1rem;
+    }
+}
+
+/* Contact Bar */
+.contact-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    z-index: 1000;
+    padding: 8px 0;
+    border-bottom: 2px solid #495057;
+    box-shadow: 0 2px 0 rgba(73, 80, 87, 0.2);
+    animation: slideDownFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+@keyframes slideDownFadeIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.contact-name {
+    color: #212529;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.contact-separator {
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.contact-email,
+.contact-linkedin {
+    color: #495057;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.contact-email:hover,
+.contact-linkedin:hover {
+    background: #f8f9fa;
+    color: #212529;
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 0 rgba(73, 80, 87, 0.2);
+}
+
+.contact-linkedin:hover {
+    color: #0077b5;
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    z-index: 1000;
+    padding: 15px 0;
+    border-top: 2px solid #495057;
+    box-shadow: 0 -2px 0 rgba(73, 80, 87, 0.2);
+    animation: slideUpFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.footer-name {
+    color: #212529;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.footer-separator {
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.footer-email,
+.footer-linkedin {
+    color: #495057;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.footer-email:hover,
+.footer-linkedin:hover {
+    background: #f8f9fa;
+    color: #212529;
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 0 rgba(73, 80, 87, 0.2);
+}
+
+.footer-linkedin:hover {
+    color: #0077b5;
+}
+
+.footer-tagline {
+    color: #6c757d;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-style: italic;
+}
+
+/* Adjust body padding for fixed elements */
+body {
+    padding-top: 60px; /* Space for contact bar */
+}
+
+
+@media (max-width: 576px) {
+    .contact-info,
+    .footer-info {
+        font-size: 0.75rem;
+        gap: 6px;
+    }
+    
+    .footer-tagline {
+        font-size: 0.8rem;
+    }
+    
+    /* Further reduce margins for very small screens */
+    .profile-section {
+        margin: 0.25rem auto 0.75rem;
+        padding: 0.75rem;
+    }
+    
+    .profile-name {
+        font-size: 1.6rem;
+        margin: 0 0 0.5rem;
+    }
+    
+    .profile-title {
+        font-size: 1rem;
+        margin: 0 0 0.75rem;
+    }
+    
+    .profile-desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* Adjust body padding for very small screens */
+    body {
+        padding-top: 70px;
+        padding-bottom: 120px;
     }
 }
