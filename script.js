@@ -137,6 +137,37 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+// Smooth scroll to works section
+function scrollToWorks() {
+    const worksSection = document.querySelector('.works-section');
+    if (worksSection) {
+        worksSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+// Add click handler to portfolio guide cards
+document.addEventListener('DOMContentLoaded', function() {
+    const guideCards = document.querySelectorAll('.guide-card');
+    
+    guideCards.forEach((card, index) => {
+        card.addEventListener('click', function() {
+            if (index === 0) { // "View Projects" card
+                scrollToWorks();
+            } else if (index === 1) { // "Take Challenge" card
+                scrollToWorks();
+            } else if (index === 2) { // "Unlock Contact" card
+                scrollToWorks();
+            }
+        });
+        
+        // Add cursor pointer
+        card.style.cursor = 'pointer';
+    });
+});
+
 // Challenge System
 const completedChallenges = new Set();
 let completedProjects = new Set();
