@@ -64,6 +64,10 @@ function openModal(projectIndex) {
     const modalContent = document.getElementById('modalContent');
     const project = projects[projectIndex];
 
+    // Reset scroll position immediately
+    modalContent.scrollTop = 0;
+    modalContent.scrollTo(0, 0);
+
     // Create challenge HTML if it exists
     let challengeHTML = '';
     if (project.challenge) {
@@ -101,30 +105,60 @@ function openModal(projectIndex) {
             </div>
         </div>
         ${challengeHTML}
-        <div style="margin-top: 20px; display: flex; gap: 10px;">
-            <button onclick="closeModal()" style="padding: 10px 20px; background: #333; color: white; border: 2px solid #000; cursor: pointer;">
-                ← Back to Projects
-            </button>
-            ${project.link !== '#' ? `
-            <a href="${project.link}" target="_blank" style="display: inline-block; padding: 10px 20px; background: #4a90e2; color: white; text-decoration: none; border: 2px solid #000;">
+        ${project.link !== '#' ? `
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="${project.link}" target="_blank" style="display: inline-block; padding: 10px 20px; background: #4a90e2; color: white; text-decoration: none; border: 2px solid #000; border-radius: 4px;">
                 View Live Demo
             </a>
-            ` : ''}
+        </div>
+        ` : ''}
+        <div style="margin-top: 15px; text-align: center; font-size: 0.8rem; color: #6c757d; font-style: italic;">
+            💡 Click outside or press Escape to close
         </div>
     `;
 
     modal.style.display = 'flex';
+    
+    // Ensure scroll position is at top after content loads
+    setTimeout(() => {
+        modalContent.scrollTop = 0;
+        modalContent.scrollTo(0, 0);
+    }, 50);
+    
+    // Auto-close modal after 30 seconds if no interaction
+    const autoCloseTimer = setTimeout(() => {
+        closeModal();
+    }, 30000);
+    
+    // Store timer reference for potential clearing
+    modal.autoCloseTimer = autoCloseTimer;
 }
 
 function closeModal() {
     const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('modalContent');
+    
+    // Clear auto-close timer if it exists
+    if (modal.autoCloseTimer) {
+        clearTimeout(modal.autoCloseTimer);
+        modal.autoCloseTimer = null;
+    }
+    
+    // Reset scroll position to top
+    modalContent.scrollTop = 0;
+    modalContent.scrollTo(0, 0);
+    
     modal.style.display = 'none';
 }
 
 // Close modal when clicking outside the content
 window.onclick = function(event) {
     const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('modalContent');
     if (event.target == modal) {
+        // Reset scroll position before closing
+        modalContent.scrollTop = 0;
+        modalContent.scrollTo(0, 0);
         closeModal();
     }
 }
@@ -132,12 +166,16 @@ window.onclick = function(event) {
 // Close modal with Escape key
 document.addEventListener('keydown', function(event) {
     const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('modalContent');
     if (event.key === 'Escape' && modal.style.display === 'flex') {
+        // Reset scroll position before closing
+        modalContent.scrollTop = 0;
+        modalContent.scrollTo(0, 0);
         closeModal();
     }
 });
 
-// Smooth scroll to works section
+// Navigation
 function scrollToWorks() {
     const worksSection = document.querySelector('.works-section');
     if (worksSection) {
@@ -148,22 +186,12 @@ function scrollToWorks() {
     }
 }
 
-// Add click handler to portfolio guide cards
+// Initialize guide cards
 document.addEventListener('DOMContentLoaded', function() {
     const guideCards = document.querySelectorAll('.guide-card');
     
-    guideCards.forEach((card, index) => {
-        card.addEventListener('click', function() {
-            if (index === 0) { // "View Projects" card
-                scrollToWorks();
-            } else if (index === 1) { // "Take Challenge" card
-                scrollToWorks();
-            } else if (index === 2) { // "Unlock Contact" card
-                scrollToWorks();
-            }
-        });
-        
-        // Add cursor pointer
+    guideCards.forEach((card) => {
+        card.addEventListener('click', scrollToWorks);
         card.style.cursor = 'pointer';
     });
 });
@@ -272,11 +300,14 @@ function showCelebration(message) {
     // Create full-screen confetti
     createFullScreenConfetti();
     
-    // Remove elements after animation
+    // Remove elements after animation and close modal
     setTimeout(() => {
         celebration.style.display = 'none';
         document.body.removeChild(celebration);
-    }, 2000);
+        
+        // Close modal after celebration
+        closeModal();
+    }, 2500);
 }
 
 function createFullScreenConfetti() {
