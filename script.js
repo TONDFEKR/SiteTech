@@ -2,10 +2,10 @@
 const projects = [
     {
         title: "Alcazar Learning",
-        category: "AI-Powered Learning Solutions",
+        category: "AI Powered Learning Solutions",
         image: "Alcazar Learning.png",
-        description: "Led the development of AI-powered mobile and web applications that transform learning through personalized, data-driven experiences. Directed cross-functional teams to build scalable platforms for skill development, with a focus on writing and content creation. Our solutions leverage machine learning to tailor learning paths, track engagement, and optimize content delivery.",
-        technologies: ["Mobile & Web Development", "AI/ML Integration", "Data Analysis", "Content Creation", "EdTech Solutions"],
+        description: "Led research and user experience design of AI powered mobile and web applications that create adaptive and data driven learning. Collaborated with cross functional teams to build scalable platforms focused on professional and job market skill sets. Designed strategies for personalised content delivery, learner engagement and optimisation through research, technology and data.",
+        technologies: ["Mobile & Web Development", "AI/ML Integration in Education", "Data Analysis for Learning Impact", "Content Creation & Curriculum Design", "EdTech Solutions, Gamification, Multimedia"],
         challenge: {
             question: "What's the #1 most in-demand skill according to 1.5M jobs on LinkedIn/Seek 2024?",
             options: ["Project Management", "Time Management", "Communication"],
@@ -16,10 +16,10 @@ const projects = [
     },
     {
         title: "Peter MacCallum Cancer Centre",
-        category: "Medical Education",
+        category: "Medical Genomics Education",
         image: "PeterMac.png",
-        description: "Developed interactive online programs for medical scientists, simplifying complex genomic topics and enhancing engagement through creative teaching strategies.",
-        technologies: ["Genomics", "E-Learning", "Medical Education"],
+        description: "Designed and developed interactive online programs for medical scientists and pathologists, translating complex genomic concepts into accessible, engaging learning. Collaborated with medical experts to curate high quality content and fostered interactive sessions that improved knowledge retention and learner engagement.",
+        technologies: ["Genomics & Medical Education", "Instructional Design & E-Learning", "UX for Learning Programs", "Content Strategy in Healthcare Education"],
         challenge: {
             question: "What's the main challenge in teaching genomics?",
             options: ["Technical complexity", "Lack of interest", "Limited resources"],
@@ -29,25 +29,25 @@ const projects = [
         link: "#"
     },
     {
-        title: "The Florey Institute",
-        category: "Neuroscience Research",
+        title: "The Florey Institute of Neuroscience and Mental Health",
+        category: "Neuroscience Research & Cognitive Data Analysis",
         image: "Florey.png",
-        description: "Supported neuroscience and biochemistry research teams by ensuring compliance, maintaining equipment, and fostering collaboration in laboratory environments.",
-        technologies: ["Research Support", "Lab Management", "Neuroscience"],
+        description: "Conducted research on brain function and protein interactions, applying both experimental and computational methods to explore neural processes. Developed strong skills in data analysis, cognitive science research, and translating complex findings into meaningful insights capabilities now central to designing evidence based learning solutions. Collaborated with interdisciplinary teams to ensure accuracy, compliance, and effective communication of research outcomes.",
+        technologies: ["Research Design & Data Analysis", "Cognitive & Neuroscience Foundations for Learning", "Translating Research into Educational Practice", "Scientific Communication & Collaboration"],
         challenge: {
-            question: "What's crucial for lab collaboration?",
-            options: ["Strict schedules", "Clear communication", "Individual workspaces"],
-            correct: 1,
+            question: "What is the most important factor in turning mistakes into effective learning?",
+            options: ["Error detection and correction", "Avoiding mistakes", "Memorisation without reflection"],
+            correct: 0,
             xp: 25
         },
         link: "#"
     },
     {
         title: "Monash University",
-        category: "Science Education",
+        category: "Educational Design & Learning Innovation",
         image: "Monash.png",
-        description: "Created detailed science learning modules, collaborated with academics, and used technology to deliver accessible, high-quality educational content.",
-        technologies: ["Curriculum Development", "E-Learning", "Science Education"],
+        description: "Designed and developed comprehensive online modules in neuroscience, bioinformatics, and immunology, ensuring content was both accurate and accessible. Collaborated closely with academics and clinicians to transform complex material into engaging, learner friendly resources. Applied instructional design and UX principles to integrate technology seamlessly into courses, improving accessibility and learner engagement. Created flexible, adult learning models that supported diverse learning needs and promoted inclusive, high quality education.",
+        technologies: ["Instructional & Curriculum Design", "UX for Learning & E-Learning Development", "Data-Driven Learning Strategies", "Accessibility & Inclusive Education", "Cross-Disciplinary Collaboration"],
         challenge: {
             question: "What makes educational content accessible?",
             options: ["Complex terminology", "Multiple formats", "Lengthy explanations"],
@@ -82,9 +82,11 @@ function openModal(projectIndex) {
                         </div>`
                     ).join('')}
                 </div>
-                <p id="feedback-${projectIndex}" style="display:none; color: #4CAF50; font-weight: bold; font-size: 1.2em; text-align: center; margin-top: 15px;">
-                    🎉 Correct! Challenge completed! 🎉
-                </p>
+                <div id="feedback-${projectIndex}" style="display:none; background: #d4edda; border: 2px solid #28a745; border-radius: 8px; padding: 15px; margin-top: 15px; text-align: center;">
+                    <p style="color: #155724; font-weight: bold; font-size: 1.2em; margin: 0;">
+                        🎉 Correct! Challenge completed! 🎉
+                    </p>
+                </div>
             </div>
         `;
     }
@@ -226,7 +228,7 @@ function checkCompletion() {
         modal.style.zIndex = '2500';
         modal.innerHTML = `
             <div class="modal-content" style="max-width: 600px; text-align: center;">
-                <span class="close" onclick="this.parentElement.parentElement.style.display='none'" style="position: absolute; top: 15px; right: 20px; font-size: 40px; cursor: pointer; color: #495057; font-weight: bold; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f8f9fa; border: 2px solid #495057; transition: all 0.2s ease; box-shadow: 3px 3px 0 rgba(73, 80, 87, 0.2);" onmouseover="this.style.background='#e9ecef'; this.style.transform='scale(1.1)'; this.style.boxShadow='4px 4px 0 rgba(73, 80, 87, 0.3)'" onmouseout="this.style.background='#f8f9fa'; this.style.transform='scale(1)'; this.style.boxShadow='3px 3px 0 rgba(73, 80, 87, 0.2)'">&times;</span>
+                <span class="close" onclick="this.parentElement.parentElement.style.display='none'" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer; color: #495057; font-weight: bold; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #f8f9fa; border: 2px solid #495057; transition: all 0.2s ease; box-shadow: 2px 2px 0 rgba(73, 80, 87, 0.2); z-index: 10;" onmouseover="this.style.background='#e9ecef'; this.style.transform='scale(1.05)'; this.style.boxShadow='3px 3px 0 rgba(73, 80, 87, 0.3)'" onmouseout="this.style.background='#f8f9fa'; this.style.transform='scale(1)'; this.style.boxShadow='2px 2px 0 rgba(73, 80, 87, 0.2)'">&times;</span>
                 <h2>🎉 Portfolio Complete! 🎉</h2>
                 <p>You've explored all my projects and completed the challenges!</p>
                 <div style="margin: 30px 0;">
@@ -284,15 +286,20 @@ function checkAnswer(projectIndex, selectedIndex, element) {
         const correctOption = options[project.challenge.correct];
         correctOption.classList.add('correct');
         
-        feedback.textContent = 'Almost there! Try another project! 🌟';
+        feedback.innerHTML = '<p style="color: #721c24; font-weight: bold; font-size: 1.2em; margin: 0;">Almost there! Try another project! 🌟</p>';
         feedback.style.display = 'block';
     }
 }
 
 function showCelebration(message) {
-    // Create celebration text
+    // Create celebration text with background
     const celebration = document.createElement('div');
     celebration.className = 'celebration';
+    celebration.style.background = '#d4edda';
+    celebration.style.border = '3px solid #28a745';
+    celebration.style.borderRadius = '12px';
+    celebration.style.padding = '20px 30px';
+    celebration.style.boxShadow = '0 4px 15px rgba(40, 167, 69, 0.3)';
     celebration.textContent = message;
     document.body.appendChild(celebration);
     celebration.style.display = 'block';
