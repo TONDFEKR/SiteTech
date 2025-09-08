@@ -292,14 +292,21 @@ function checkAnswer(projectIndex, selectedIndex, element) {
 }
 
 function showCelebration(message) {
-    // Create celebration text with background
+    // Create celebration text with mobile-optimized styling
     const celebration = document.createElement('div');
     celebration.className = 'celebration';
-    celebration.style.background = '#d4edda';
-    celebration.style.border = '3px solid #28a745';
-    celebration.style.borderRadius = '12px';
-    celebration.style.padding = '20px 30px';
-    celebration.style.boxShadow = '0 4px 15px rgba(40, 167, 69, 0.3)';
+    celebration.style.background = '#fff';
+    celebration.style.border = '3px solid #000';
+    celebration.style.borderRadius = '8px';
+    celebration.style.padding = '12px 16px';
+    celebration.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3)';
+    celebration.style.fontSize = '1rem';
+    celebration.style.fontWeight = 'bold';
+    celebration.style.color = '#28a745';
+    celebration.style.maxWidth = '280px';
+    celebration.style.width = '90%';
+    celebration.style.textAlign = 'center';
+    celebration.style.margin = '0 auto';
     celebration.textContent = message;
     document.body.appendChild(celebration);
     celebration.style.display = 'block';
