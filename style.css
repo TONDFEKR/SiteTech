@@ -11,16 +11,18 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
     background: #f8f9fa;
     color: #2c3e50;
     line-height: 1.6;
-    padding: 20px 20px 100px 20px;
+    padding: clamp(10px, 2vw, 20px) clamp(10px, 2vw, 20px) clamp(80px, 10vw, 100px) clamp(10px, 2vw, 20px);
     max-width: 1200px;
     margin: 0 auto;
     min-height: 100vh;
+    font-size: clamp(14px, 2.5vw, 16px);
 }
 
 /* Animations */
@@ -37,10 +39,42 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-
-
 @keyframes fadeIn {
     to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Performance optimizations */
+* {
+    will-change: auto;
+}
+
+.pixel-border,
+.guide-card,
+.work-item,
+.challenge-option {
+    will-change: transform, box-shadow;
+}
+
+/* Smooth scrolling for better UX */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Pixel Art Styling */
@@ -49,6 +83,7 @@ body {
     box-shadow: 4px 4px 0 rgba(73, 80, 87, 0.2);
     background: #ffffff;
     transition: all 0.2s ease;
+    border-radius: 4px;
 }
 
 .pixel-border:hover {
@@ -56,27 +91,40 @@ body {
     box-shadow: 5px 5px 0 rgba(73, 80, 87, 0.3);
 }
 
+.pixel-border:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 rgba(73, 80, 87, 0.2);
+}
+
+/* Focus states for accessibility */
+.pixel-border:focus-visible {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+}
+
 /* Profile Section */
 .profile-section {
-    margin: 1rem auto 2rem;
-    max-width: 900px;
+    margin: clamp(0.5rem, 2vw, 1rem) auto clamp(1rem, 4vw, 2rem);
+    max-width: min(900px, 95vw);
     background: #fff;
-    padding: 2rem;
+    padding: clamp(1rem, 4vw, 2rem);
     text-align: center;
     animation: slideUpFadeIn 0.8s ease-out forwards;
     opacity: 0;
     transform: translateY(20px);
+    border-radius: 4px;
 }
 
 .profile-name {
-    font-size: 2.2rem;
-    margin: 0 0 1rem;
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+    margin: 0 0 clamp(0.5rem, 2vw, 1rem);
     color: #212529;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: clamp(1px, 0.3vw, 2px);
     text-transform: uppercase;
     position: relative;
     display: inline-block;
+    line-height: 1.2;
 }
 
 .hover-bar {
@@ -94,19 +142,20 @@ body {
 }
 
 .profile-title {
-    font-size: 1.3rem;
+    font-size: clamp(1rem, 3vw, 1.3rem);
     color: #495057;
-    margin: 0 0 1.5rem;
+    margin: 0 0 clamp(1rem, 3vw, 1.5rem);
     font-weight: 600;
     line-height: 1.5;
+    max-width: 100%;
 }
 
 .profile-desc {
     color: #6c757d;
     line-height: 1.8;
-    max-width: 700px;
+    max-width: min(700px, 90vw);
     margin: 0 auto;
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
     font-weight: 500;
 }
 
@@ -120,33 +169,35 @@ body {
 /* Section Titles */
 .section-title {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 3rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: clamp(1.5rem, 5vw, 3rem);
     color: #212529;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: clamp(0.5px, 0.2vw, 1px);
+    line-height: 1.2;
 }
 
 /* Works Section */
 .works-section {
-    margin: 2.5rem auto;
+    margin: clamp(1.5rem, 4vw, 2.5rem) auto;
     max-width: 1200px;
-    padding: 0 1.5rem;
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
 }
 
 /* Portfolio Guide Section */
 .portfolio-guide {
-    padding: 1.5rem 0;
+    padding: clamp(1rem, 3vw, 1.5rem) 0;
     background: #fff;
-    margin: 2rem auto;
-    max-width: 900px;
+    margin: clamp(1rem, 4vw, 2rem) auto;
+    max-width: min(900px, 95vw);
+    border-radius: 4px;
 }
 
 .guide-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    padding: 0 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
     max-width: 900px;
     margin: 0 auto;
 }
@@ -154,8 +205,8 @@ body {
 .guide-card {
     background: #fff;
     border: 2px solid #495057;
-    border-radius: 2px;
-    padding: 1rem 0.75rem;
+    border-radius: 4px;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(0.5rem, 1.5vw, 0.75rem);
     text-align: center;
     transition: all 0.2s ease;
     position: relative;
@@ -164,11 +215,13 @@ body {
     opacity: 0;
     transform: translateY(10px);
     animation: slideUpFadeIn 0.4s ease-out forwards;
+    cursor: pointer;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
-.guide-card:nth-child(1) { animation-delay: 0.1s; }
-.guide-card:nth-child(2) { animation-delay: 0.2s; }
-.guide-card:nth-child(3) { animation-delay: 0.3s; }
 
 .guide-card:nth-child(1) { animation: slideUpFadeIn 0.4s ease-out 0.1s forwards; }
 .guide-card:nth-child(2) { animation: slideUpFadeIn 0.4s ease-out 0.2s forwards; }
@@ -176,19 +229,20 @@ body {
 
 /* Guide Card Elements */
 .guide-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    margin-bottom: clamp(0.5rem, 1.5vw, 0.75rem);
     display: inline-block;
     transition: transform 0.2s ease;
 }
 
 .guide-title {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    margin-bottom: clamp(0.25rem, 1vw, 0.5rem);
     color: #212529;
     position: relative;
     display: inline-block;
     font-weight: 600;
+    line-height: 1.3;
 }
 
 .guide-title::after {
@@ -206,7 +260,10 @@ body {
     color: #6c757d;
     line-height: 1.4;
     margin: 0;
-    font-size: 0.85rem;
+    font-size: clamp(0.8rem, 2vw, 0.85rem);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
 }
 
 /* Hover Effects */
@@ -223,70 +280,33 @@ body {
     width: 100%;
 }
 
+.guide-card:focus-visible {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+}
+
+.guide-card:active {
+    transform: translateY(-2px) !important;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    body {
-        padding: 10px 10px 120px 10px;
-    }
-    
-    .profile-section {
-        margin: 0.5rem auto 1rem;
-        padding: 1rem;
-    }
-    
-    .profile-name {
-        font-size: 1.8rem;
-        line-height: 1.2;
-    }
-    
-    .profile-title {
-        font-size: 1.1rem;
-        line-height: 1.4;
-    }
-    
-    .profile-desc {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-    
-    .section-title {
-        font-size: 1.75rem;
-        margin-bottom: 2rem;
-    }
-    
     .guide-grid {
         grid-template-columns: 1fr;
-        gap: 0.75rem;
-        max-width: 320px;
+        gap: clamp(0.5rem, 2vw, 0.75rem);
+        max-width: min(320px, 90vw);
         margin: 0 auto;
     }
     
     .guide-card {
-        padding: 0.75rem;
-    }
-    
-    .guide-icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .guide-title {
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .guide-desc {
-        font-size: 0.8rem;
-        line-height: 1.4;
-    }
-    
-    .footer {
-        padding: 12px 0;
+        padding: clamp(0.5rem, 2vw, 0.75rem);
+        min-height: 100px;
     }
     
     .footer-content {
         flex-direction: column;
-        gap: 10px;
+        gap: clamp(8px, 2vw, 10px);
         text-align: center;
     }
     
@@ -296,13 +316,28 @@ body {
     
     .footer-contact {
         justify-content: center;
-        gap: 10px;
+        gap: clamp(8px, 2vw, 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .work-grid {
+        grid-template-columns: 1fr;
+        gap: clamp(0.75rem, 2vw, 1rem);
     }
     
-    .footer-email,
-    .footer-linkedin {
-        font-size: 0.8rem;
-        padding: 4px 8px;
+    .guide-grid {
+        max-width: min(280px, 85vw);
+    }
+    
+    .modal-content {
+        padding: clamp(15px, 3vw, 20px);
+        max-height: 85vh;
+    }
+    
+    .challenge-option {
+        padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 15px);
+        font-size: clamp(0.85rem, 2.2vw, 0.9rem);
     }
 }
 
@@ -315,9 +350,9 @@ body {
 /* Work Grid */
 .work-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: clamp(1rem, 3vw, 1.5rem);
+    padding: clamp(0.5rem, 2vw, 1rem);
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
@@ -327,8 +362,8 @@ body {
     content: '';
     position: absolute;
     top: -1rem;
-    left: 1rem;
-    right: 1rem;
+    left: clamp(0.5rem, 2vw, 1rem);
+    right: clamp(0.5rem, 2vw, 1rem);
     height: 2px;
     background: #6c757d;
 }
@@ -348,6 +383,7 @@ body {
     animation: slideUpFadeIn 0.6s ease-out forwards;
     opacity: 0;
     transform: translateY(20px);
+    min-height: 200px;
 }
 
 .work-item:nth-child(1) { animation: slideUpFadeIn 0.6s ease-out 0.1s forwards; }
@@ -359,6 +395,17 @@ body {
     transform: translateY(-2px);
     box-shadow: 5px 5px 0 rgba(73, 80, 87, 0.3);
     z-index: 2;
+}
+
+.work-item:focus-visible {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+    z-index: 3;
+}
+
+.work-item:active {
+    transform: translateY(0);
+    box-shadow: 2px 2px 0 rgba(73, 80, 87, 0.2);
 }
 
 /* Completion States */
@@ -461,7 +508,7 @@ body {
     right: 0;
     background: rgba(0, 0, 0, 0.9);
     color: #fff;
-    padding: 20px;
+    padding: clamp(15px, 3vw, 20px);
     transform: translateY(100%);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(5px);
@@ -474,10 +521,18 @@ body {
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
 }
 
-
 .work-item h3 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
+    margin-bottom: clamp(5px, 1.5vw, 10px);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.work-item p {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    line-height: 1.4;
+    margin: 0;
+    opacity: 0.9;
 }
 
 /* Modal */
@@ -492,17 +547,20 @@ body {
     z-index: 2000;
     justify-content: center;
     align-items: center;
+    padding: clamp(10px, 2vw, 20px);
 }
 
 .modal-content {
     background: white;
-    padding: 30px 30px 30px 30px;
-    max-width: 600px;
-    width: 90%;
+    padding: clamp(20px, 4vw, 30px);
+    max-width: min(600px, 95vw);
+    width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
     border: 4px solid #000;
+    border-radius: 4px;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
 }
 
 .modal-content h2 {
@@ -557,8 +615,8 @@ body {
 .challenge-option {
     display: block;
     width: 100%;
-    padding: 16px 20px;
-    margin-bottom: 10px;
+    padding: clamp(12px, 3vw, 16px) clamp(15px, 4vw, 20px);
+    margin-bottom: clamp(8px, 2vw, 10px);
     background: #ffffff;
     border: 2px solid #495057;
     border-radius: 8px;
@@ -566,12 +624,15 @@ body {
     text-align: left;
     transition: all 0.3s ease;
     position: relative;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     line-height: 1.5;
     color: #212529;
     box-sizing: border-box;
     font-weight: 500;
     box-shadow: 3px 3px 0 rgba(73, 80, 87, 0.2);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .challenge-option:hover:not(.correct):not(.incorrect) {
@@ -580,6 +641,12 @@ body {
     box-shadow: 4px 4px 0 rgba(73, 80, 87, 0.3);
     border-color: #6c757d;
     font-weight: 600;
+}
+
+.challenge-option:focus-visible {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+    z-index: 1;
 }
 
 .challenge-option:active {
@@ -695,14 +762,14 @@ body {
 
 .close-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
+    top: clamp(8px, 2vw, 10px);
+    right: clamp(8px, 2vw, 10px);
+    font-size: clamp(18px, 4vw, 24px);
     cursor: pointer;
     color: #495057;
     font-weight: bold;
-    width: 32px;
-    height: 32px;
+    width: clamp(28px, 6vw, 32px);
+    height: clamp(28px, 6vw, 32px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -712,12 +779,24 @@ body {
     transition: all 0.2s ease;
     box-shadow: 2px 2px 0 rgba(73, 80, 87, 0.2);
     z-index: 10;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .close-btn:hover {
     background: #e9ecef;
     transform: scale(1.05);
     box-shadow: 3px 3px 0 rgba(73, 80, 87, 0.3);
+}
+
+.close-btn:focus-visible {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+}
+
+.close-btn:active {
+    transform: scale(0.95);
+    box-shadow: 1px 1px 0 rgba(73, 80, 87, 0.2);
 }
 
 /* Responsive */
@@ -806,7 +885,7 @@ body {
     right: 0;
     background: #ffffff;
     z-index: 1000;
-    padding: 12px 0;
+    padding: clamp(8px, 2vw, 12px) 0;
     border-top: 2px solid #495057;
     box-shadow: 0 -2px 0 rgba(73, 80, 87, 0.2);
     animation: slideUpFadeIn 0.6s ease-out forwards;
@@ -817,29 +896,32 @@ body {
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 clamp(15px, 3vw, 20px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
+    gap: clamp(10px, 2vw, 15px);
+    flex-wrap: wrap;
 }
 
 .footer-main {
     flex: 1;
     text-align: left;
+    min-width: 200px;
 }
 
 .footer-name {
     color: #212529;
     font-weight: 700;
     letter-spacing: 0.5px;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     margin-bottom: 2px;
+    line-height: 1.2;
 }
 
 .footer-tagline {
     color: #495057;
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
     font-weight: 600;
     font-style: italic;
     line-height: 1.3;
@@ -847,8 +929,9 @@ body {
 
 .footer-contact {
     display: flex;
-    gap: 12px;
+    gap: clamp(8px, 2vw, 12px);
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .footer-email,
@@ -856,12 +939,16 @@ body {
     color: #495057;
     text-decoration: none;
     transition: all 0.2s ease;
-    padding: 4px 8px;
+    padding: clamp(3px, 1vw, 4px) clamp(6px, 1.5vw, 8px);
     border-radius: 3px;
-    font-size: 0.8rem;
+    font-size: clamp(0.7rem, 1.8vw, 0.8rem);
     font-weight: 600;
     border: 1px solid #dee2e6;
     background: #f8f9fa;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
 }
 
 .footer-email:hover,

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <header class="profile-section pixel-border">
+    <header class="profile-section pixel-border" role="banner">
         <div class="profile-content">
             <h1 class="profile-name">Reza Tondfekr<div class="hover-bar"></div></h1>
             <h2 class="profile-title">Educational Technologist & Learning Designer | Researcher | AI Integration Specialist</h2>
@@ -18,60 +18,60 @@
         </div>
     </header>
 
-    <section class="portfolio-guide pixel-border">
+    <section class="portfolio-guide pixel-border" role="region" aria-labelledby="portfolio-guide-title">
         <div class="container">
-            <h2 class="section-title">Portfolio Guide</h2>
+            <h2 class="section-title" id="portfolio-guide-title">Portfolio Guide</h2>
             <div class="guide-grid">
-                <article class="guide-card">
-                    <div class="guide-icon">📂</div>
+                <article class="guide-card" tabindex="0" role="button" aria-label="View Projects - Explore EdTech case studies">
+                    <div class="guide-icon" aria-hidden="true">📂</div>
                     <h3 class="guide-title">View Projects</h3>
-                    <p class="guide-desc" style="font-size: 1.1em">Explore EdTech case studies in skill development, neuroscience research, and scalable e-learning design.</p>
+                    <p class="guide-desc">Explore EdTech case studies in skill development, neuroscience research, and scalable e-learning design.</p>
                 </article>
                 
-                <article class="guide-card">
-                    <div class="guide-icon">❓</div>
+                <article class="guide-card" tabindex="0" role="button" aria-label="Take Challenge - Test your knowledge with interactive quizzes">
+                    <div class="guide-icon" aria-hidden="true">❓</div>
                     <h3 class="guide-title">Take Challenge</h3>
-                    <p class="guide-desc" style="font-size: 1.1em">Test your knowledge with quick, interactive micro-quizzes built with learning science principles.</p>
+                    <p class="guide-desc">Test your knowledge with quick, interactive micro-quizzes built with learning science principles.</p>
                 </article>
                 
-                <article class="guide-card">
-                    <div class="guide-icon">🏆</div>
+                <article class="guide-card" tabindex="0" role="button" aria-label="Unlock Contact - Complete challenges to unlock contact details">
+                    <div class="guide-icon" aria-hidden="true">🏆</div>
                     <h3 class="guide-title">Unlock Contact</h3>
-                    <p class="guide-desc" style="font-size: 1.1em">View and complete all challenges to unlock contact details and explore project collaboration opportunities.</p>
+                    <p class="guide-desc">View and complete all challenges to unlock contact details and explore project collaboration opportunities.</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <section class="works-section">
-        <h2 class="section-title">Works & Projects</h2>
+    <section class="works-section" role="region" aria-labelledby="works-title">
+        <h2 class="section-title" id="works-title">Works & Projects</h2>
         <div class="work-grid">
-            <div class="work-item pixel-border" onclick="openModal(0)">
-                <img src="Alcazar Learning.png" alt="Alcazar Learning" class="work-image">
+            <div class="work-item pixel-border" onclick="openModal(0)" tabindex="0" role="button" aria-label="View Alcazar Learning project details">
+                <img src="Alcazar Learning.png" alt="Alcazar Learning - AI Powered Skill Development platform" class="work-image">
                 <div class="work-info">
                     <h3>Alcazar Learning</h3>
                     <p>AI Powered Skill Development</p>
                 </div>
             </div>
 
-            <div class="work-item pixel-border" onclick="openModal(1)">
-                <img src="PeterMac.png" alt="Peter MacCallum Cancer Centre" class="work-image">
+            <div class="work-item pixel-border" onclick="openModal(1)" tabindex="0" role="button" aria-label="View Peter MacCallum Cancer Centre project details">
+                <img src="PeterMac.png" alt="Peter MacCallum Cancer Centre - Medical Genomics Education platform" class="work-image">
                 <div class="work-info">
                     <h3>Peter MacCallum Cancer Centre</h3>
                     <p>Medical Genomics Education</p>
                 </div>
             </div>
 
-            <div class="work-item pixel-border" onclick="openModal(2)">
-                <img src="Florey.png" alt="The Florey Institute" class="work-image">
+            <div class="work-item pixel-border" onclick="openModal(2)" tabindex="0" role="button" aria-label="View The Florey Institute project details">
+                <img src="Florey.png" alt="The Florey Institute - Neuroscience Research platform" class="work-image">
                 <div class="work-info">
                     <h3>The Florey Institute</h3>
                     <p>Neuroscience Research</p>
                 </div>
             </div>
 
-            <div class="work-item pixel-border" onclick="openModal(3)">
-                <img src="Monash.png" alt="Monash University" class="work-image">
+            <div class="work-item pixel-border" onclick="openModal(3)" tabindex="0" role="button" aria-label="View Monash University project details">
+                <img src="Monash.png" alt="Monash University - Health & Science Education platform" class="work-image">
                 <div class="work-info">
                     <h3>Monash University</h3>
                     <p>Health & Science Education</p>
@@ -80,9 +80,9 @@
         </div>
 
     <!-- Modal -->
-    <div id="projectModal" class="modal">
+    <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content pixel-border">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <button class="close-btn" onclick="closeModal()" aria-label="Close modal">&times;</button>
             <div id="modalContent">
                 <!-- Content will be inserted here by JavaScript -->
             </div>
@@ -90,15 +90,15 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer pixel-border">
+    <footer class="footer pixel-border" role="contentinfo">
         <div class="footer-content">
             <div class="footer-main">
                 <div class="footer-name">Reza Tondfekr</div>
                 <div class="footer-tagline">🧠 Neuroscience, Technology & Education integrated for real learning impact</div>
             </div>
             <div class="footer-contact">
-                <a href="mailto:r.tondfekr@gmail.com" class="footer-email">📧 Email</a>
-                <a href="https://www.linkedin.com/in/reza-tondfekr" target="_blank" class="footer-linkedin">💼 LinkedIn</a>
+                <a href="mailto:r.tondfekr@gmail.com" class="footer-email" aria-label="Send email to Reza Tondfekr">📧 Email</a>
+                <a href="https://www.linkedin.com/in/reza-tondfekr" target="_blank" class="footer-linkedin" aria-label="Visit Reza Tondfekr's LinkedIn profile">💼 LinkedIn</a>
             </div>
         </div>
     </footer>

@@ -92,24 +92,24 @@ function openModal(projectIndex) {
     }
 
     modalContent.innerHTML = `
-        <h2>${project.title}</h2>
+        <h2 id="modal-title">${project.title}</h2>
         <p class="category">${project.category}</p>
         <div style="text-align: center; margin: 10px 0 20px;">
-            <img src="${project.image}" alt="${project.title}" style="max-width: 90%; max-height: 200px; border: 2px solid #000; object-fit: contain; background: #fff; padding: 10px; margin: 0 auto;">
+            <img src="${project.image}" alt="${project.title} - ${project.category}" style="max-width: 90%; max-height: 200px; border: 2px solid #000; object-fit: contain; background: #fff; padding: 10px; margin: 0 auto;">
         </div>
         <p>${project.description}</p>
         <div style="margin: 20px 0;">
             <h3>Technologies & Skills:</h3>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
                 ${project.technologies.map(tech => 
-                    `<span style="background: #f0f0f0; padding: 5px 10px; border: 2px solid #000; display: inline-block;">${tech}</span>`
+                    `<span style="background: #f0f0f0; padding: 5px 10px; border: 2px solid #000; display: inline-block; border-radius: 4px;">${tech}</span>`
                 ).join('')}
             </div>
         </div>
         ${challengeHTML}
         ${project.link !== '#' ? `
         <div style="margin-top: 20px; text-align: center;">
-            <a href="${project.link}" target="_blank" style="display: inline-block; padding: 10px 20px; background: #4a90e2; color: white; text-decoration: none; border: 2px solid #000; border-radius: 4px;">
+            <a href="${project.link}" target="_blank" style="display: inline-block; padding: 10px 20px; background: #4a90e2; color: white; text-decoration: none; border: 2px solid #000; border-radius: 4px; font-weight: 600;">
                 View Live Demo
             </a>
         </div>
@@ -120,6 +120,12 @@ function openModal(projectIndex) {
     `;
 
     modal.style.display = 'flex';
+    
+    // Focus management for accessibility
+    const closeBtn = modal.querySelector('.close-btn');
+    if (closeBtn) {
+        closeBtn.focus();
+    }
     
     // Ensure scroll position is at top after content loads
     setTimeout(() => {
@@ -194,7 +200,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     guideCards.forEach((card) => {
         card.addEventListener('click', scrollToWorks);
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                scrollToWorks();
+            }
+        });
         card.style.cursor = 'pointer';
+    });
+
+    // Initialize work items for keyboard navigation
+    const workItems = document.querySelectorAll('.work-item');
+    workItems.forEach((item, index) => {
+        item.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(index);
+            }
+        });
     });
 });
 
